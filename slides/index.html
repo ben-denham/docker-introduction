@@ -68,7 +68,10 @@
                     <h1 class="catalyst-logo">Catalyst</h1>
                     <h3>Intro to Docker</h3>
                     <p class="small-text">
-                        Presented by <a href="#">Travis Holton</a>
+                        Presented by <a href="#">Ben Denham</a>
+                    </p>
+                    <p class="small-text">
+                        Slides by <a href="#">Donovan Jones</a>, <a href="#">Travis Holton</a>, and <a href="#">Ben Denham</a>
                     </p>
                 </section>
 
@@ -148,7 +151,14 @@
                         </li>
                     </ul>
                 </section>
-                
+
+                <!-- Large image slide -->
+                <section class="image-slide">
+                    <h2>Lightweight</h2>
+                    <img src="img/docker.png" alt="">
+                    <aside class="notes">Remember: Docker containers are all tied to the same kernel.</aside>
+                </section>
+
                 <section>
                     <h3>Decoupling</h3>
                     <ul>
@@ -162,17 +172,11 @@
                     </ul>
                     <aside class="notes">Scale services, not machines. You *can* treat machines like cattle, not pets.</aside>
                 </section>
-                <!-- Large image slide -->
-                <section class="image-slide">
-                    <h2>Lightweight</h2>
-                    <img src="img/docker.png" alt="">
-                    <aside class="notes">Remember: Docker containers are all tied to the same kernel.</aside>
-                </section>
 
 
 
-                
-                
+
+
                 <section>
                     <h3>What is Docker?</h3>
                     <ul>
@@ -185,7 +189,7 @@
 
                             <li><a href="https://docs.docker.com/engine/understanding-docker/#what-is-docker-engine">Docker Engine</a></li>
                         </li>
-                        
+
                     </ul>
                 </section>
 
@@ -219,8 +223,6 @@
                         <li>Containers are intended to do for software
                             deployment what the shipping container did for
                             the shipping industry.</li>
-                        <li>Containers are comparable to virtual
-                            machines, but there are important differences.</li>
                     </ul>
                 </section>
 
@@ -244,36 +246,7 @@
                     <ul>
                         <li>Images
                             <ul>
-                                <li>The build component</li>
-                            </ul>
-                        </li>
-                        <li>Containers
-                            <ul>
-                                <li>The run component</li>
-                            </ul>
-                        </li>
-                            
-                        <li>Registries
-                            <ul>
-                                <li>The distribution component</li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <aside class="notes">Remember: Images are like templates/classes, containers are like instances/objects.</aside>
-                </section>
-                
-
-                <!-- Large image slide -->
-                <section class="image-slide">
-                    <h2>Containers and Images</h2>
-                    <img
-                    src="http://alandargan.com/wp-content/uploads/2014/11/Docker2.png" alt="">
-                </section>
-<section>
-                    <h3>Components of Docker</h3>
-                    <ul>
-                        <li>Images</li>
-                            <ul>
+                                <li><strong>The build component</strong></li>
                                 <li>Read only template for creating containers</li>
                                 <li>
                                     Can be built and distributed (by anyone)
@@ -281,14 +254,19 @@
                                 <li>Can be based on or extended by other
                                     images</li>
                             </ul>
-                        <li>Containers</li>
+                        </li>
+                        <li>Containers
                             <ul>
+                                <li><strong>The run component</strong></li>
                                 <li>An actual running instance of an image</li>
-                                <li>Read write</li>
+                                <li>Read/write</li>
                                 <li>Encasulates your application and its dependencies</li>
                             </ul>
+                        </li>
+
                         <li>Registries
                             <ul>
+                                <li><strong>The distribution component</strong></li>
                                 <li>Repository of images</li>
                             </ul>
                         </li>
@@ -296,7 +274,13 @@
                     <aside class="notes">Remember: Images are like templates/classes, containers are like instances/objects.</aside>
                 </section>
 
-                
+
+                <!-- Large image slide -->
+                <section class="image-slide">
+                    <h2>Containers and Images</h2>
+                    <img
+                    src="http://alandargan.com/wp-content/uploads/2014/11/Docker2.png" alt="">
+                </section>
 
                 <section>
                     <h3>Scripts</h3>
@@ -304,14 +288,14 @@
                         <li>Designed to be run on trusty training machines</li>
                         <li>docker-setup.sh - ensures required software is installed</li>
                         <li>user-setup.sh - sets up environment variables for our user</li>
-                        <li>docker-course.sh - list or run the course commands</li>
+                        <!--<li>docker-course.sh - list or run the course commands</li>-->
                     </ul>
                 </section>
 
                 <section>
                     <h3>Checkout code and examples</h3>
                     <pre><code data-trim contenteditable>
-    $ git clone https://github.com/heytrav/docker-training
+    $ git clone https://github.com/catalyst-training/docker-training
                     </code></pre>
                 </section>
                 <section>
@@ -331,12 +315,12 @@ source ./user-setup.sh
                 <section>
                     <h3>Docker architecture</h3>
                     <pre>
-    $ ps waux | grep docker 
-    $ sudo docker images
-                    </pre>
+    $ ps waux | grep dockerd
+    $ sudo docker images</pre>
 
                     <img src="img/architecture.svg" alt="Architecture">
                 </section>
+                <!--
                 <section>
                     <h3>Course script</h3>
                     <p>By default this script outputs all the commands you will need to run</p>
@@ -355,150 +339,139 @@ Usage: sudo ./docker-course.sh [OPTIONS]
 sudo ./docker-course.sh -s 3
                     </code></pre>
                 </section>
-
-                <section>
-                    <h3>1: Dockerizing applications</h3>
-                    <a
-                           href="https://docs.docker.com/engine/tutorials/dockerizing/">https://docs.docker.com/engine/tutorials/dockerizing/</a> <a href="http://webcache.googleusercontent.com/search?q=cache:https://docs.docker.com/userguide/dockerizing">(cache)</a>
-                       <aside class="notes"><ul>
-                               <li>Run simple container.</li>
-                               <li>Run interactive container.</li>
-                               <li>Run daemonized container.</li>
-                               <li>Talk about container IDs.</li>
-                               <li>docker ps (with -a for non-running containers)</li>
-                               <li>Talk about container names (automatic, and set).</li>
-                               <li>docker logs {container} (with -f to follow continuing output)</li>
-                               <li>docker stop {container}</li>
-                           </ul></aside>
-                </section>
-
-
-                
+                -->
 
 
                 <section>
-                    <section>
-                        <h3>2: Working with containers</h3>
-                        <a
-                            href="https://docs.docker.com/engine/tutorials/usingdocker/">https://docs.docker.com/engine/tutorials/usingdocker/</a> <a href="http://webcache.googleusercontent.com/search?q=cache:https://docs.docker.com/userguide/usingdocker">(cache)</a>
-                        <aside class="notes"><ul>
-                                <li>Docker version</li>
-                                <li>Help: docker [command] --help</li>
-                                <li>Run web server, explain -P for auto port-mapping.</li>
-                                <li>Only non-official images have slashes in the name (which is the DockerHub account name)</li>
-                                <li>Docker client defaults to DockerHub, but it can be made to point to another registry (but it is difficult).</li>
-                                <li>docker ps "-l" option for last running container.</li>
-                                <li>Note PORTS in docker ps output</li>
-                                <li>And use -p for custom mappings.</li>
-                                <li>Docker port {container} 5000</li>
-                                <li>docker logs -f {container} (For web app logs)</li>
-                                <li>docker top {container} (To view top output for processes in container (with PIDs of the host, not the container))</li>
-                                <li>docker inspect {container} (For container info)</li>
-                                <li>docker {start, stop, restart}</li>
-                                <li>Ports auto-allocated with -P may be different after restart.</li>
-                                <li>docker rm (with stop first)</li>
-                            </ul></aside>
-                    </section>
+                  <h3>1: Getting Help</h3>
 
-                    <section>
-                        <h3>2: Working with containers</h3>
-                        <ul>
-                            <li>Run a basic application</li>
-                            <li>Run a more complex web application</li>
-                            <li>Some networking</li>
-                        </ul>
-                    </section>
-                    <section>
-                        <h3>More Examples</h3>
-                    </section>
+                  <pre><code># Check your Docker version (often important)
+sudo docker version
 
-                    <section>
-                        <h3>Talking to our detached container</h3>
-                        <pre>
-                        
-$ docker ps -l
-
-CONTAINER ID  IMAGE                   COMMAND...
-bc533791f3f5  training/webapp:latest  python app.py ...
-
-$ docker logs -f <container>                        
-                        </pre>
-                        <p>Meanwhile in another shell</p>
-
-                        <pre>
-curl http://&lt;hostname&gt;:32768
-Hello world!%
-                        </pre>
-                    </section>
-                    <section>
-                        <h3>Create, start, stop and remove a container</h3>
-                        <pre>
-$ docker create --name myflaskapp -p 8080:5000 training/webapp python app.py
-a842945e2414132011ae704b0c4a4184acc4016d199dfd4e7181c9b89092de13
-$ docker ps -a
-
-CONTAINER ID        IMAGE                  COMMAND...
-8a73bcb9b7b8        training/webapp        "python app.py"...
-
-$ docker start myflaskapp
-a842945e2414
-
-$ docker ps
-CONTAINER ID        IMAGE               COMMAND
-8a73bcb9b7b8        training/webapp     "python app.py"...
-
-$ docker stop myflaskapp
-$ docker rm myflaskapp
-                        </pre>
-                    </section>
+# Get Docker command help
+sudo docker --help
+sudo docker run --help</code></pre>
                 </section>
+
+                <section>
+
+                <section>
+                  <h3>2: Working with Containers</h3>
+
+                  <pre><code># Running a simple container
+sudo docker run hello-world
+
+# An interactive container
+sudo docker run -t -i ubuntu:14.04 /bin/bash
+
+# A daemonized container
+sudo docker run --name=insane_babbage -d ubuntu:14.04 /bin/sh -c \
+  "while true; do echo hello world; sleep 1; done"
+
+sudo docker ps # List running containers (note container ids)
+sudo docker stop insane_babbage # Stop a container
+sudo docker ps -a # List non-running containers
+
+sudo docker start insane_babbage # Restart
+sudo docker rm insane_babbage # Delete the container</code></pre>
+                </section>
+
+                <section>
+                  <h3>2: A Simple Web App</h3>
+
+                  <pre><code>#Start a webserver daemon, exposing all ports (-P)
+sudo docker run --name=nostalgic_morse -d -P \
+    training/webapp python app.py
+
+# View last running container
+docker ps -l
+
+# Command to get assigned port
+docker port nostalgic_morse 5000
+
+# Or you could assign it yourself (e.g. 5555 on host)
+sudo docker run --name=nostalgic_morse -d -p 5555:5000 \
+    training/webapp python app.py
+
+sudo docker logs nostalgic_morse # View standard output; supports -f
+sudo docker top nostalgic_morse # View container processes
+sudo docker inspect nostalgic_morse # Inspect a container</code></pre>
+                  <aside class="notes"><ul>
+                    <li>Only non-official images have slashes in the name (which is the DockerHub account name)</li>
+                    <li>Docker client defaults to DockerHub, but it can be made to point to another registry (but it is a bit tricky).</li>
+                    <li>Note PORTS in docker ps output, custom mappings assigned with -p</li>
+                  </ul></aside>
+                </section>
+
+                </section>
+
+                <section>
 
                 <section>
                     <h3>3: Get started with images</h3>
-<a
-    href="https://docs.docker.com/engine/tutorials/dockerimages/">https://docs.docker.com/engine/tutorials/dockerimages/</a> <a href="http://webcache.googleusercontent.com/search?q=cache:https://docs.docker.com/userguide/dockerimages">(cache)</a>
+
+                    <pre><code># List images
+sudo docker images
+
+# Search for an image
+sudo docker search sinatra
+
+# Pull an image
+sudo docker pull alpine:3.5
+
+# Remove an image
+sudo docker rmi alpine:3.5</code></pre>
+
                     <aside class="notes"><ul>
-                      <li>docker images (To list images)</li>
                       <li>Careful not to chew up space with too many images.</li>
                       <li>An image is a base image, plus all FS layers on top.</li>
                       <li>Talk about tags (default tag when none is specified is latest)</li>
-                      <li>docker pull centos (Pulling independent of running)</li>
-                      <li>docker search sinatra</li>
-                      <li>docker pull training/sinatra</li>
-                      <li>Run the container, make changes, run commit.</li>
-                      <li>commit creates a new image using a read-only version of the UFS layer the changes were made to.</li>
-                      <li>Generally better to use a Dockerfile (it must have that name)</li>
-                      <li>Create sinatra folder+Dockerfile, and explain contents</li>
-                      <li>Each instruction in a Dockerfile creates a new layer.</li>
-                      <li>docker build</li>
-                      <li>Everything in the same directory as the Dockerfile is sent to the Docker daemon as "context" (so don't put a Dockerfile in your home directory).</li>
-                      <li>To keep image sizes small, remove apt-cache (in the same instruction as installing dependencies), and remove other unnecessary cruft before it is added in a layer.</li>
-                      <li>Max layers: 127</li>
-                      <li>docker tag (To tag an image)</li>
-                      <li>Digests don't seem to work correctly, and seem to overlap with SHA IDs.</li>
-                      <li>You can push to DockerHub</li>
-                      <li>docker rmi (To remove images, not to be confused with rm for containers)</li>
                     </ul></aside>
                 </section>
 
                 <section>
-                    <h3>4: Networking containers</h3>
-<a
-    href="https://docs.docker.com/engine/tutorials/networkingcontainers/">https://docs.docker.com/engine/tutorials/networkingcontainers/</a> (new in 1.9 was <a href="https://docs.docker.com/engine/userguide/networking/default_network/dockerlinks/">Dockerlinks</a>)
+                    <h3>3: Creating your own image</h3>
+
+                    <pre><code>#Start a container
+sudo docker run -t -i training/sinatra /bin/bash
+
+# Run "gem install json" in the container and exit
+
+# Commit the change as a new image layer
+sudo docker commit -m "Added json gem" -a "Me" \
+    $CONTAINER_ID me/sinatra:v1
+
+# See the image
+sudo docker images
+
+# Run a new container from the image
+sudo docker run -t -i me/sinatra:v1 /bin/bash</code></pre>
+                </section>
+
+                </section>
+
+                <section>
+                    <h3>4: Creating an image from a Dockerfile</h3>
+
+                    <pre><code># Clone some source code
+git clone https://github.com/docker-training/webapp
+cd webapp
+
+# Look at the Dockerfile
+cat Dockerfile
+
+# Build an image
+sudo docker build -t me/webapp .
+
+# Run a container
+sudo docker run -d -p 5555:5000 me/webapp</code></pre>
+
                     <aside class="notes"><ul>
-                      <li>Networking used to be handled through "Docker links" (one way exposing of ports between containers), which are now deprecated.</li>
-                      <li>docker run --name (Naming a container)</li>
-                      <li>You can create networks for your containers to sit on (specifying a driver (e.g. bridge driver on local machine, overlay driver across machines))</li>
-                      <li>You'll want to create your own networks to isolate containers from each other in more complex setups.</li>
-                      <li>List networks with: docker network ls</li>
-                      <li>"bridge" is a special network that all cotnainers are added to by default.</li>
-                      <li>You can "docker inspect {network}" to find out container IP addresses</li>
-                      <li>docker network create</li>
-                      <li>docker network connect/disconnect</li>
-                      <li>Start a container on a network with --net</li>
-                      <li>Inspect a container to see network information (it can be on multiple networks).</li>
-                      <li>Start 2 containers on the same network, and ping each other.</li>
-                      <li>When you connect a container to a network, Docker updates /etc/hosts on the other hosts so they can refer to it by its container name.</li>
+                      <li>Generally better to use a Dockerfile (it must have that name)</li>
+                      <li>Each instruction in a Dockerfile creates a new layer.</li>
+                      <li>Everything in the same directory as the Dockerfile is sent to the Docker daemon as "context" (so don't put a Dockerfile in your home directory).</li>
+                      <li>To keep image sizes small, remove apt-cache (in the same instruction as installing dependencies), and remove other unnecessary cruft before it is added in a layer.</li>
+                      <li>Max layers: 127</li>
                     </ul></aside>
                 </section>
 
@@ -523,15 +496,48 @@ $ docker rm myflaskapp
                 </section>
 
                 <section>
-                    <h3>6: Get started with Docker Hub</h3>
-<a
-    href="https://docs.docker.com/engine/tutorials/dockerrepos/">https://docs.docker.com/engine/tutorials/dockerrepos/</a> <a href="http://webcache.googleusercontent.com/search?q=cache:https://docs.docker.com/userguide/dockerrepos">(cache)</a>
+
+                <section>
+                    <h3>6: Publishing to Docker Hub/Cloud</h3>
+
+                    <a href="https://docs.docker.com/docker-cloud/builds/push-images/">https://docs.docker.com/docker-cloud/builds/push-images/</a>
+
+                    <pre><code>sudo docker login
+
+# Tag your image
+sudo docker tag my_image $DOCKER_USERNAME/my_image
+
+# Push your image
+sudo docker push $DOCKER_USERNAME/my_image</code></pre>
+
                     <aside class="notes"><ul>
                       <li>DockerHub has similar webhook and automation capabilities to GitHub.</li>
                     </ul></aside>
                 </section>
 
+                <section>
+                    <h3>6: Publishing to Docker Hub/Cloud</h3>
 
+                    <a href="https://docs.docker.com/registry/">https://docs.docker.com/registry/</a>
+
+                    <pre><code># Run a registry
+sudo docker run -d -p 5000:5000 --name registry registry:2
+
+# Tag your image
+sudo docker tag my_image localhost:5000/my_image
+
+# Push your image to the registry
+sudo docker push localhost:5000/my_image
+
+# Pull an image from the registry
+sudo docker pull localhost:5000/my_image</code></pre>
+
+                    <aside class="notes"><ul>
+                      <li>DockerHub has similar webhook and automation capabilities to GitHub.</li>
+                    </ul></aside>
+                </section>
+
+                </section>
 <!--
    -                <section>
    -                    <section>
@@ -540,8 +546,8 @@ $ docker rm myflaskapp
    -
    -                    <section>
    -                        <h3>Run Hello world in busy box</h3>
-   -                        <pre> $ docker run busybox echo hello world 
-   -                        
+   -                        <pre> $ docker run busybox echo hello world
+   -
    -Unable to find image 'busybox' locally
    -busybox:latest: The image you are pulling has been verified
    -511136ea3c5a: Pull complete
@@ -578,7 +584,7 @@ $ docker rm myflaskapp
    -CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
    -62e9b7c9be5b        python:3.5          "python -u -m http.se"   5 seconds ago       Up 4 seconds        0.0.0.0:1234->1234/tcp   berserk_murdock
    -
-   -$ docker logs -f <container>                        
+   -$ docker logs -f <container>
    -                        </pre>
    -                    </section>
    -
@@ -733,10 +739,7 @@ priority = []string{
                 <section>
                     <h3>8: More on Dockerfiles</h3>
                     <ul>
-                        <li><a
-                                href="https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/">Dockerfile Best Practices</a></li>
-                        <li><a href="https://github.com/nginxinc/docker-nginx/blob/4e5332fa50a1f8f73657417c6bfe249bbb3b110d/dockerfile">Nginx Dockerfile</a></li>
-                        <li><a href="https://github.com/docker-library/postgres/blob/8a9fbcb40f13ccc7762f278b9df611cabe22d300/9.5/dockerfile">Postgres Dockerfile</a></li>
+                        <li><a href="https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/">Dockerfile Best Practices</a></li>
                         <li><a href="https://labs.ctl.io/dockerfile-entrypoint-vs-cmd/">ENTRYPOINT vs CMD</a></li>
                     </ul>
                     <aside class="notes"><ul>
@@ -757,8 +760,7 @@ priority = []string{
                 <section>
                     <h3>8: Dockerfiles: ENTRYPOINT vs CMD</h3>
                     <ul>
-                        <li>See <a href="https://labs.ctl.io/dockerfile-entrypoint-vs-cmd/">https://labs.ctl.io/dockerfile-entrypoint-vs-cmd/</a> for details</li>
-                        <li>Lets look at some images: <a href="https://imagelayers.io/?images=debian:latest,ubuntu:latest,alpine:latest">https://imagelayers.io/?images=debian:latest,ubuntu:latest,alpine:latest</a></li>
+                        <li>Lets look at some images: <a href="https://imagelayers.io/?images=debian:6,alpine:2.6">https://imagelayers.io/?images=debian:6,alpine:2.6</a></li>
                     <pre><code data-trim contenteditable>
 $ sudo docker run -i -t debian
 root@0f94a65e7d37:/# exit
@@ -784,6 +786,19 @@ Linux fac4960db319 3.13.0-66-generic #108-Ubuntu SMP Wed Oct 7 15:20:27 UTC 2015
                     </code></pre>
                 </section>
                 <section>
+                  <h3>8: Dockerfiles: ENTRYPOINT vs CMD</h3>
+                  <pre><code data-trim contenteditable>
+$ cat dockerfiles/ping-localhost-both/dockerfile
+FROM debian:jessie
+ENTRYPOINT ["/bin/ping","-c","3"]
+CMD ["localhost"]
+$ sudo docker build -t ping dockerfiles/ping-localhost-both
+$ sudo docker run ping
+$ sudo docker run ping google.com
+$ sudo docker run --entrypoint="ls" ping
+                  </code></pre>
+                </section>
+                <section>
                     <h3>8: Dockerfiles: ENTRYPOINT vs CMD</h3>
                     <ul>
                         <li>Use CMD when you want the user to have the choice of commands to run</li>
@@ -792,78 +807,12 @@ Linux fac4960db319 3.13.0-66-generic #108-Ubuntu SMP Wed Oct 7 15:20:27 UTC 2015
                     </ul>
                 </section>
                 <section>
-                    <h3>8: Dockerfiles: ENTRYPOINT vs CMD</h3>
-                    <pre><code data-trim contenteditable>
-$ cat dockerfiles/python/dockerfile
-FROM python
-ENTRYPOINT ["python"]
-$ sudo docker build -t python dockerfiles/python
-Sending build context to docker daemon 2.048 kB
-Step 0 : FROM python
----> e7d942e7369d
-Step 1 : ENTRYPOINT python
----> Using cache
----> c3b6fc104517
-Successfully built c3b6fc104517
-$ sudo docker run -ti python
-Python 3.5.0 (default, Nov 11 2015, 10:39:25)
-[GCC 4.9.2] on linux
-Type "help", "copyright", "credits" or "license" for more information.
->>> exit()
-$ sudo docker run --entrypoint uname -t python
-Linux
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>8: Dockerfiles: ENTRYPOINT vs CMD</h3>
-                    <pre><code data-trim contenteditable>
-$ sudo docker run -d demo
-f27197f4370c2981792ab3d09a0620c1c8f7c993cb66770ffc1f1aa6c4dfe021
-$ docker ps -l
-CONTAINER ID IMAGE     COMMAND                 CREATED        STATUS         PORTS NAMES
-f27197f4370c dojo/demo "/bin/sh -c 'ping loc"  11 seconds ago Up 10 seconds        suspicious_leakey
-$ sudo docker exec f27197f4370c ps -f
-UID        PID  PPID  C STIME TTY          TIME CMD
-root         1     0  0 08:21 ?        00:00:00 /bin/sh -c ping localhost
-root         5     1  0 08:21 ?        00:00:00 ping localhost
-root         6     0  0 08:21 ?        00:00:00 ps -f
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>8: Dockerfiles: ENTRYPOINT vs CMD</h3>
+                    <h3>8: Dockerfiles: Shell vs Exec Form</h3>
                     <ul>
-                        <li>Shell form vs Exec form</li>
-                        <li>Don't mix and match</li>
-                        <li>Use exec</li>
+                      <li>Shell form: <pre><code>CMD ping localhost</code></pre></li>
+                      <li>Exec form: <pre><code>CMD ['/bin/ping','localhost']</code></pre></li>
+                      <li>Prefer Exec, as your command will run as PID 1 (useful when sending POSIX signals), rather than an invocation of "/bin/sh -c"</li>
                     </ul>
-                </section>
-                <section>
-                    <h3>8: Dockerfiles: ENTRYPOINT vs CMD</h3>
-                    <pre><code data-trim contenteditable>
-$ cat dockerfiles/ping-localhost-exec/dockerfile
-FROM debian:jessie
-CMD ["ping", "localhost"]
-$ sudo docker build -t demo dockerfiles/ping-localhost-exec/
-...
-$ sudo docker run -d demo
-db7526643dbe7ec6d6f27aa707539aa67a3573a8adc7754372d8fce0fe824cfc
-$ sudo docker exec db7526643dbe ps -f
-UID        PID  PPID  C STIME TTY          TIME CMD
-root         1     0  0 08:27 ?        00:00:00 ping localhost
-root         6     0  0 08:27 ?        00:00:00 ps -f
-                    </code></pre>
-                </section>
-                <section>
-                    <h3>8: Dockerfiles: ENTRYPOINT vs CMD</h3>
-                    <pre><code data-trim contenteditable>
-$ cat dockerfiles/ping-localhost-both/dockerfile
-FROM debian:jessie
-ENTRYPOINT ["/bin/ping","-c","3"]
-CMD ["localhost"]
-$ sudo docker build -t ping dockerfiles/ping-localhost-both
-$ sudo docker run ping google.com
-$ sudo docker run ping
-                    </code></pre>
                 </section>
                 </section>
 
@@ -882,6 +831,26 @@ $ sudo docker run ping
                 </section>
 
                 <section>
+                  <section>
+                    <h3>10: Docker networking</h3>
+                    <a
+    href="https://docs.docker.com/engine/tutorials/networkingcontainers/">https://docs.docker.com/engine/tutorials/networkingcontainers/</a>
+                    <aside class="notes"><ul>
+                      <li>Networking used to be handled through "Docker links" (one way exposing of ports between containers), which are now deprecated.</li>
+                      <li>docker run --name (Naming a container)</li>
+                      <li>You can create networks for your containers to sit on (specifying a driver (e.g. bridge driver on local machine, overlay driver across machines))</li>
+                      <li>You'll want to create your own networks to isolate containers from each other in more complex setups.</li>
+                      <li>List networks with: docker network ls</li>
+                      <li>"bridge" is a special network that all cotnainers are added to by default.</li>
+                      <li>You can "docker inspect {network}" to find out container IP addresses</li>
+                      <li>docker network create</li>
+                      <li>docker network connect/disconnect</li>
+                      <li>Start a container on a network with --net</li>
+                      <li>Inspect a container to see network information (it can be on multiple networks).</li>
+                      <li>Start 2 containers on the same network, and ping each other.</li>
+                      <li>When you connect a container to a network, Docker updates /etc/hosts on the other hosts so they can refer to it by its container name.</li>
+                    </ul></aside>
+                </section>
                 <section>
                     <h3>10: Docker networking</h3>
                     <img src="http://www.linuxjournal.com/files/linuxjournal.com/ufiles/imagecache/large-550px-centered/u1002061/11833f1.png" alt="docker networking">
@@ -965,9 +934,8 @@ search wgtn.cat-it.co.nz lan
                 <section>
                     <h3>Immutable Architecture/Infrastructure</h3>
                     <ul>
-                        <li>Phoenix servers</li>
                         <li>The environment is defined in code</li>
-                        <li>If you need to change _anything_ you create a new instance and destroy the old one</li>
+                        <li>If you need to change <em>anything</em> you create a new instance and destroy the old one</li>
                         <li>Docker makes it much more likely you will work in this way</li>
                         <li>Procedural vs Declarative</li>
                     </ul>
@@ -1030,7 +998,7 @@ search wgtn.cat-it.co.nz lan
                     <h3>Containers and Microservices</h3>
                     <ul>
                         <li>Containers do not necessarily map to service or application boundaries</li>
-                        <li>A service will often contain more than one container</li>
+                        <li>A microservice will often contain more than one container</li>
                         <li>A container is more like an OO Class - Brendan Burns @ Dockercon 2015</li>
                         <li>A container is a persistent object - Eric Brewer @ OSCon 2015</li>
                     </ul>
@@ -1242,6 +1210,7 @@ search wgtn.cat-it.co.nz lan
                         <li>Open source project written in Go</li>
                         <li>Cloud Native Computing Foundation</li>
                         <li>Manage applications not machines</li>
+                        <li>Available as a service</li>
                     </ul>
                 </section>
                 <section>
@@ -1333,7 +1302,7 @@ search wgtn.cat-it.co.nz lan
                     <ul>
                         <li>Normal Docker volumes are per host</li>
                         <li>Kubernetes Persistent volumes</li>
-                        <li>Docker Engine 1.9 includes redesigned volume system with more plugins (eg <a href="https://docs.clusterhq.com/en/1.7.1/introduction/what-is-flocker.html">Flocker</a>)</li>
+                        <li>Docker Engine 1.9 includes redesigned volume system with more plugins (eg <a href="https://clusterhq.com/flocker/introduction/">Flocker</a>)</li>
                     </ul>
                 </section>
                 <section class="image-slide">
@@ -1349,8 +1318,16 @@ search wgtn.cat-it.co.nz lan
                 <section>
                     <h3>Patterns for Managing State</h3>
                     <ul>
+                        <li>Orchestrator-specific secret functionality
+                          <ul>
+                            <li>eg Swarm secrets</li>
+                          </ul></li>
                         <li>Outside the cluster (SEP)</li>
-                        <li>Adapted to run in cluster (eg MySQL inside cluster with data volume for persistence)</li>
+                        <li>Adapted to run in cluster (eg MySQL inside cluster with data volume for persistence)
+                          <ul>
+                            <li>Constrain the container to a single node</li>
+                            <li>Share the volume with all nodes (eg NFS)</li>
+                          </ul></li>
                         <li>Cluster native (eg Cassandra or Riak)</li>
                         <li><a href="http://vitess.io/">vitess.io</a></li>
                     </ul>
