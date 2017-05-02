@@ -51,7 +51,7 @@ fi
 DOCKVIZ_BIN=/usr/local/bin/dockviz
 if [ ! -f $DOCKVIZ_BIN ];
 then
-    wget https://github.com/justone/dockviz/releases/download/v0.2.1/dockviz_linux_amd64
+    wget https://github.com/justone/dockviz/releases/download/v0.5.0/dockviz_linux_amd64
     chmod 755 dockviz_linux_amd64
     mv dockviz_linux_amd64 $DOCKVIZ_BIN
     apt-get install -y graphviz
@@ -61,7 +61,7 @@ fi
 COMPOSE_BIN=/usr/local/bin/docker-compose
 if [ ! -f $COMPOSE_BIN ];
 then
-    wget https://github.com/docker/compose/releases/download/1.8.1/docker-compose-linux-x86_64
+    wget https://github.com/docker/compose/releases/download/1.13.0/docker-compose-linux-x86_64
     chmod 755 docker-compose-linux-x86_64
     mv docker-compose-linux-x86_64 $COMPOSE_BIN
 fi
