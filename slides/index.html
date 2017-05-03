@@ -476,6 +476,8 @@ sudo docker run -d -p 5555:5000 me/webapp</code></pre>
                 </section>
 
                 <section>
+
+                <section>
                     <h3>5: Managing data in containers</h3>
 <a
     href="https://docs.docker.com/engine/tutorials/dockervolumes/">https://docs.docker.com/engine/tutorials/dockervolumes/</a> <a href="http://webcache.googleusercontent.com/search?q=cache:https://docs.docker.com/userguide/dockervolumes">(cache)</a>
@@ -493,6 +495,39 @@ sudo docker run -d -p 5555:5000 me/webapp</code></pre>
                       <li>To remove volumes along with a container, use: docker rm -v</li>
                       <li>Removing a container without removing volumes will create dangling volumes which will need to be manually deleted.</li>
                     </ul></aside>
+                </section>
+
+                <section>
+                  <h3>5: Managing data in containers</h3>
+
+                  <pre><code># Add a data volume to a container
+docker run -d -P --name web -v /webapp training/webapp python app.py
+
+# Locate the volume
+docker inspect web
+
+# Mount a host directory (or file) as a volume
+sudo docker run -v $(pwd)/logs:/var/log -ti \
+    training/webapp /bin/bash
+sudo docker run -v ~/.bashrc:/root/.bashrc:ro -ti \
+    training/webapp /bin/bash
+
+# Mount shared storage as a volume
+docker run --volume-driver=convoy -v my-named-volume:/webapp \
+    training/webapp python app.py
+
+# Using --volumes-from to backup volumes
+docker run --rm --volumes-from web -v $(pwd):/backup \
+    ubuntu tar cvf /backup/backup.tar /webapp
+
+# List volumes
+docker volume ls
+
+# Remove unused volumes
+docker volume prune</code></pre>
+
+                </section>
+
                 </section>
 
                 <section>
@@ -516,7 +551,7 @@ sudo docker push $DOCKER_USERNAME/my_image</code></pre>
                 </section>
 
                 <section>
-                    <h3>6: Publishing to Docker Hub/Cloud</h3>
+                    <h3>6: Pushing to a Docker Registry</h3>
 
                     <a href="https://docs.docker.com/registry/">https://docs.docker.com/registry/</a>
 
@@ -639,46 +674,6 @@ $ sudo docker run --name=sleepy_cori -it ubuntu:latest /bin/bash
 root@e888e0fef39e:/# echo flubber > test.txt
 root@e888e0fef39e:/# exit
 
-$ sudo docker ps -l
-CONTAINER ID IMAGE         COMMAND     CREATED        STATUS                    PORTS NAMES
-e888e0fef39e ubuntu:latest "/bin/bash" 57 seconds ago Exited (0) 11 seconds ago       sleepy_cori
-
-$ sudo docker restart sleepy_cori
-sleepy_cori
-
-$ sudo docker attach sleepy_cori
-root@e888e0fef39e:/#
-                    </code></pre>
-                    <aside class="notes">Make changes to a container.</aside>
-                </section>
-
-                <section>
-                    <h3>7: Docker Diff</h3>
-                    <pre><code data-trim contenteditable>
-root@e888e0fef39e:/# apt-get install mtr-tiny
-Reading package lists... Done
-Building dependency tree
-Reading state information... Done
-The following NEW packages will be installed:
-mtr-tiny
-0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
-Need to get 41.7 kB of archives.
-After this operation, 126 kB of additional disk space will be used.
-Get:1 http://archive.ubuntu.com/ubuntu/ trusty/main mtr-tiny amd64 0.85-2 [41.7 kB]
-Fetched 41.7 kB in 1s (38.4 kB/s)
-Selecting previously unselected package mtr-tiny.
-(Reading database ... 11528 files and directories currently installed.)
-Preparing to unpack .../mtr-tiny_0.85-2_amd64.deb ...
-Unpacking mtr-tiny (0.85-2) ...
-Setting up mtr-tiny (0.85-2) ...
-root@e888e0fef39e:/# exit
-                    </code></pre>
-                    <aside class="notes">Make more changes to a container.</aside>
-                </section>
-
-                <section>
-                    <h3>7: Docker Diff</h3>
-                    <pre><code data-trim contenteditable>
 $ sudo docker ps -l
 CONTAINER ID IMAGE         COMMAND     CREATED       STATUS                    PORTS NAMES
 e888e0fef39e ubuntu:latest "/bin/bash" 2 minutes ago Exited (0) 25 seconds ago       sleepy_cori
@@ -899,12 +894,14 @@ search wgtn.cat-it.co.nz lan
                 </section>
                 <section>
                     <h3>11: Exec</h3>
+                    <pre><code>docker exec $CONTAINER $COMMAND</code></pre>
                     <ul>
                         <li>The Docker exec command runs a <strong>new</strong> command (process) in a running container</li>
                     </ul>
                 </section>
                 <section>
                     <h3>11: Attach</h3>
+                    <pre><code>docker attach $CONTAINER</code></pre>
                     <ul>
                         <li>Attach lets you view or interact with any running container's primary process (pid 1) </li>
                         <li>You can attach to the same contained process multiple times simultaneously, screen sharing style</li>
@@ -949,6 +946,7 @@ search wgtn.cat-it.co.nz lan
                 </section>
 
                 <!-- Microservices -->
+                <!--
                 <section>
                 <section>
                     <h3>Microservices</h3>
@@ -1029,7 +1027,9 @@ search wgtn.cat-it.co.nz lan
                     </ul>
                 </section>
                 </section>
+                -->
 
+                <!--
                 <section>
                     <h3>Devops</h3>
                     <ul>
@@ -1064,7 +1064,8 @@ search wgtn.cat-it.co.nz lan
                 </section>
                 </section>
 
-                 <!-- Where to start? -->
+                <!-- Where to start? -->
+                <!--
                 <section>
                 <section>
                     <h3>Containers: Where to start?</h3>
@@ -1086,12 +1087,12 @@ search wgtn.cat-it.co.nz lan
                         <li><a href="https://github.com/CenturyLinkLabs/golang-builder">Compiling go</a></li>
                     </ul>
                 </section>
-                 <!-- Large image slide -->
                 <section class="image-slide">
                     <h2>Bosch Dreaming</h2>
                     <a href="img/Hieronymus_Bosch_003.jpg"><img src="img/Hieronymus_Bosch_003.jpg" alt="Bosch Dream" height="600" width="800"></a>
                 </section>
                 </section>
+                -->
 
                 <!-- ecosystem -->
                 <section>
@@ -1171,32 +1172,217 @@ search wgtn.cat-it.co.nz lan
                     <h3>Docker compose</h3>
                     <ul>
                         <li>Mainly used for spinning up multi-container development/testing environments.</li>
-                        <li>Written in python rather than go like most of Docker</li>
-                        <li>Comparable to vagrant</li>
-                        <li>New lib written in go called <a href="http://rancher.com/our-journey-with-docker-compose-and-the-introduction-of-libcompose/">libcompose</a></li>
-                        <li>Lots of documentation will mention (now obsolete) links, you can generally just remove links configuration.</li>
+                        <li>You deploy <strong>stacks</strong> made up of <strong>services</strong>
+                          <ul>
+                            <li>One container for each service (for compose)</li>
+                          </ul></li>
+                        <li>Comparable to Vagrant for developer environments</li>
+                        <li>Several different file version standards of compose files (latest is version 3)</li>
                     </ul>
-
                 </section>
                 <section>
-                    <h3>Docker compose</h3>
-                    <a href="https://docs.docker.com/compose/">Overview of Docker Compose</a> <a href="http://webcache.googleusercontent.com/search?q=cache:https://docs.docker.com/compose/">(cache)</a>
+                    <h3>docker-compose.yml</h3>
+                    <pre><code>version: "3"
+services:
+  web:
+    image: training/webapp
+    ports:
+      - "8000:80"
+    networks:
+      - webnet
+  redis:
+    image: redis
+    ports:
+      - "6379:6739"
+    volumes:
+      - ./data:/data
+    networks:
+      - webnet
+networks:
+  webnet:</code></pre>
                 </section>
                 <section>
                     <h3>Docker compose - hands on</h3>
-                    <a href="https://docs.docker.com/compose/gettingstarted/">Example app</a>
+                    <pre><code>git clone https://github.com/ben-denham/docker-compose-demo.git
+cd docker-compose-demo
+
+cat docker-compose.yml
+
+docker-compose up</code></pre>
                 </section>
                 </section>
 
                 <!-- Docker swarm -->
                 <section>
+                <section>
                     <h3>Docker swarm</h3>
                     <ul>
                         <li>Native clustering for Docker</li>
-                        <li>Use standard tools to interact with a cluster of Docker engines</li>
+                        <li>Manage a cluster of Docker engines without any additional tools</li>
                         <li>Turn a group of Docker engines into a single, virtual Docker engine</li>
-                        <li>Engines can be deployed using Docker machine (<a href="http://docs.catalystcloud.io/tutorials.html#create-an-a-cloud-vm-using-docker-machine">example</a>)</li>
                     </ul>
+                </section>
+
+                <section>
+                  <h3>Creating a Swarm</h3>
+
+                  <pre><code># Start a swarm "manager"
+$ sudo docker swarm init --advertise-addr 192.168.99.100
+Swarm initialized: current node (dxn1zf6l61qsb1josjja83ngz) is now a manager.
+
+To add a worker to this swarm, run the following command:
+
+    docker swarm join \
+    --token SWMTKN-1-49nj1cmql0jkz5s954yi3oex3nedyz0fb0xx14ie39trti4wxv-8vxv8rssmk743ojnwacrr2e7c \
+    192.168.99.100:2377
+
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+
+# View Swarm state
+$ sudo docker info
+$ sudo docker node ls</code></pre>
+
+                  <a href="http://docs.catalystcloud.io/tutorials/docker-getting-started-with-swarm-mode-tutorial-on-the-catalyst-cloud.html">Docker Swarm on the Catalyst Cloud Tutorial</a>
+                </section>
+
+                <section>
+                  <h3>Running containers in a Swarm</h3>
+
+                  <pre><code># Run a container
+sudo docker service create --replicas 3 --name helloworld --publish 5000:5000 training/webapp
+
+sudo docker service ls # View running "services"
+sudo docker service ps helloworld # View containers for service
+sudo docker service inspect helloworld # View service configuration
+
+# Scale the service
+sudo docker service scale helloworld=5
+
+# Apply a rolling update
+sudo docker service update --image training/webapp:latest helloworld
+
+# Remove the service
+sudo docker service rm helloworld</code></pre>
+
+                </section>
+
+                <section>
+                  <h3>Swarm Mesh Routing</h3>
+
+                  <img src="img/ingress-routing-mesh.png">
+                </section>
+
+                <section>
+                  <h3>docker-compose.yml - with "deploy" configuration</h3>
+
+                  <pre><code>version: "3"
+services:
+  web:
+    image: training/webapp
+    ports:
+      - "8000:80"
+    networks:
+      - webnet
+    deploy:
+      replicas: 5
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+  redis:
+    image: redis
+    ports:
+      - "6379:6739"
+    volumes:
+      - ./data:/data
+    networks:
+      - webnet
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+networks:
+  webnet:</code></pre>
+                </section>
+
+                <section>
+                  <h3>Running a stack in a Swarm</h3>
+
+                  <pre><code># Run a stack
+sudo docker stack deploy -c swarm-compose.yml webstack
+
+sudo docker stack ls # View running "stacks"
+sudo docker stack services webstack # View services in a stack
+sudo docker stack ps webstack # View containers in a stack
+
+# Scale or apply a rolling update
+sudo docker stack deploy -c swarm-compose.yml webstack
+
+# Remove the service
+sudo docker stack rm webstack</code></pre>
+
+                </section>
+
+                <section>
+                  <h3>Leaving the Swarm</h3>
+
+                  <pre><code>sudo docker swarm leave
+# If it's the last manager
+sudo docker swarm leave --force</code></pre>
+                </section>
+
+                </section>
+
+                <section>
+                  <section>
+                    <h3>Summary of Docker Products</h3>
+
+                    <ul>
+                      <li>Docker Engine
+                        <ul><li>The actual programme for running containers</li></ul></li>
+                      <li>Docker Compose
+                        <ul><li>Run a "stack" of containers</li></ul></li>
+                      <li>Docker Swarm
+                        <ul>
+                          <li>Manage a cluster of Docker Engines as a single, virtual Docker Engine</li>
+                          <li>Now part of Docker Engine</li>
+                        </ul></li>
+                      <li>Docker Machine
+                        <ul>
+                          <li>Remotely provision and use a Docker engine on another machine</li>
+                          <li>Previously used for Mac and Windows</li>
+                        </ul></li>
+                      <li>Docker for Mac and Windows
+                        <ul>
+                          <li>Include a lightweight Linux VM</li>
+                          <li>Supersede Docker Toolbox</li>
+                        </ul></li>
+                    </ul>
+                  </section>
+                  <section>
+                    <h3>Summary of Docker Products</h3>
+
+                    <ul>
+                      <li>Docker Hub
+                        <ul>
+                          <li>Registry as a Service; Appears to be superseded Store and Cloud</li>
+                        </ul></li>
+                      <li>Docker Store
+                        <ul><li>Download free and commercial images</li></ul></li>
+                      <li>Docker Cloud
+                        <ul><li>Registry+Build+Testing as a Service</li></ul></li>
+                      <li>Docker Registry
+                        <ul><li>Host your own repository of images</li></ul></li>
+                      <li>Docker Notary
+                        <ul><li>Tool for verifying/trusting images</li></ul></li>
+                      <li>Docker EE vs Docker CE
+                        <ul><li>Docker now has a supported enterprise edition with exclusive features</li>
+                        <li>Docker community edition remains open-source</li></ul></li>
+                      <li>Docker Datacenter
+                        <ul><li>Easily deploy Docker EE in a datacenter or cloud environment</li></ul></li>
+                    </ul>
+                  </section>
                 </section>
 
                 <!-- Kubernetes -->
@@ -1213,6 +1399,7 @@ search wgtn.cat-it.co.nz lan
                         <li>Available as a service</li>
                     </ul>
                 </section>
+                <!--
                 <section>
                     <h3>Kubernetes Components</h3>
                     <ul>
@@ -1223,11 +1410,13 @@ search wgtn.cat-it.co.nz lan
                         <li>Replication Controllers - the orchestrator that controls and monitors the pods within a service (known as replicas)</li>
                     </ul>
                 </section>
+                -->
                 <section>
                   <h3>Kubernetes Overview</h3>
                   <img src="img/kubernetes-diagram.png" alt="Kubernetes diagram">
                   <aside class="notes">The services and controllers actually run as processes on every node. The external load balancer is necessary to split traffic across the nodes, and once it reaches a node, the service will route it to the correct pod, or even a different node (see: http://www.dasblinkenlichten.com/kubernetes-101-external-access-into-the-cluster/).</aside>
                 </section>
+                <!--
                 <section>
                     <h3>Pods/Services</h3>
                     <ul>
@@ -1239,6 +1428,7 @@ search wgtn.cat-it.co.nz lan
                         <li>Scale service by scaling pods</li>
                     </ul>
                 </section>
+                -->
                 </section>
 
                  <!-- Managing state -->
@@ -1482,8 +1672,8 @@ search wgtn.cat-it.co.nz lan
                     <h3>Monitoring</h3>
                     <p>Lets build a Docker image for some testing:</p>
                     <pre><code data-trim contenteditable>
-$ cat ~/src/docker-training/dockerfiles/stress-testing/dockerfile
-$ sudo docker build -t stress-test ~/src/docker-training/dockerfiles/stress-testing/
+$ cat dockerfiles/stress-testing/Dockerfile
+$ sudo docker build -t stress-test dockerfiles/stress-testing/
 $ sudo docker run stress-test stress --help
 $ sudo docker run [DOCKER OPTIONS] stress-test stress [STRESS OPTIONS]
                     </code></pre>
@@ -1526,6 +1716,7 @@ $ check-config.sh # Check that the kernel supports it.
 # Edit /etc/default/grub:
 # GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"
                     </code></pre>
+                    <a href="https://github.com/moby/moby/blob/master/contrib/check-config.sh">check-config.sh</a>
                 </section>
                 </section>
 
